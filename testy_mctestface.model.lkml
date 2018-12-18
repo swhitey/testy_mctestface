@@ -22,6 +22,9 @@ explore: test {
   hidden: no # IMPORTANT - keep explores hidden to avoid clutter
 }
 
+datagroup: foo {
+  sql_trigger: select count(*) from ${test.SQL_TABLE_NAME} ;;
+}
 
 view: test  {
   derived_table: {
@@ -34,10 +37,12 @@ view: test  {
       UNION ALL
       SELECT 'bar' as some_string, 4 as some_num, '2017-12-28' as some_date
       ;;
+    sql_trigger_value: select current_date ;;
   }
 
   dimension: some_string {
     type: string
+    hidden: yes
   }
 
   dimension: some_num {
